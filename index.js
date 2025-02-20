@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const QRCode = require('qrcode');
@@ -6,8 +7,8 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 
 const app = express();
-require('dotenv').config();
 const port = process.env.PORT || 3001;
+
 // Middleware
 app.use(express.json());
 app.use(cors());
@@ -15,18 +16,19 @@ app.use(cors());
 // Rate limiting
 const otpLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 15, // Limit each IP to 3 OTP requests per windowMs
+    max: 15, // Limit each IP to 15 OTP requests per windowMs
     message: 'Too many OTP requests, please try again later.',
 });
 app.use('/send-otp', otpLimiter);
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/otpService', {
-    serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds instead of 10
-    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+mongoose.connect(process.env.MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
 })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
+
 // OTP schema
 const otpSchema = new mongoose.Schema({
     phoneNumber: { type: String, required: true },
@@ -35,6 +37,7 @@ const otpSchema = new mongoose.Schema({
 });
 const OTP = mongoose.model('OTP', otpSchema);
 
+// WhatsApp client setup
 const client = new Client({
     puppeteer: {
         headless: true, // Run in headless mode
