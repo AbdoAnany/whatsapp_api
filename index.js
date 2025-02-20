@@ -6,8 +6,8 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 
 const app = express();
-const port = 3001;
-
+require('dotenv').config();
+const port = process.env.PORT || 3001;
 // Middleware
 app.use(express.json());
 app.use(cors());
@@ -35,11 +35,10 @@ const otpSchema = new mongoose.Schema({
 });
 const OTP = mongoose.model('OTP', otpSchema);
 
-// WhatsApp client setup
 const client = new Client({
     puppeteer: {
-        headless: false,
-        executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', // Path to Chrome on macOS
+        headless: true, // Run in headless mode
+        args: ['--no-sandbox', '--disable-setuid-sandbox'], // Required for Render
     },
     authStrategy: new LocalAuth({ clientId: "client-one" }),
 });
