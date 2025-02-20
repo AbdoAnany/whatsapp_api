@@ -20,7 +20,6 @@ const otpLimiter = rateLimit({
     message: 'Too many OTP requests, please try again later.',
 });
 app.use('/send-otp', otpLimiter);
-
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
     serverSelectionTimeoutMS: 5000,
