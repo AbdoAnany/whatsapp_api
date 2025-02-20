@@ -20,6 +20,7 @@ const otpLimiter = rateLimit({
     message: 'Too many OTP requests, please try again later.',
 });
 app.use('/send-otp', otpLimiter);
+
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
     serverSelectionTimeoutMS: 5000,
@@ -41,6 +42,7 @@ const client = new Client({
     puppeteer: {
         headless: true, // Run in headless mode
         args: ['--no-sandbox', '--disable-setuid-sandbox'], // Required for Render
+        executablePath: '/usr/bin/chromium-browser', // Path to Chromium on Render
     },
     authStrategy: new LocalAuth({ clientId: "client-one" }),
 });
