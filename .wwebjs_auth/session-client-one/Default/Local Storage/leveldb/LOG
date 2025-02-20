@@ -1,0 +1,9 @@
+2025/02/19-22:04:50.414 3e03 Reusing MANIFEST /Users/abdoanany/development/whats_app/sever/.wwebjs_auth/session-client-one/Default/Local Storage/leveldb/MANIFEST-000001
+2025/02/19-22:04:50.416 3e03 Recovering log #3
+2025/02/19-22:04:50.421 3e03 Reusing old log /Users/abdoanany/development/whats_app/sever/.wwebjs_auth/session-client-one/Default/Local Storage/leveldb/000003.log 
+2025/02/19-23:05:43.397 3a03 Level-0 table #5: started
+2025/02/19-23:05:43.406 3a03 Level-0 table #5: 17542 bytes OK
+2025/02/19-23:05:43.413 3a03 Delete type=0 #3
+2025/02/20-02:47:48.981 3a03 Level-0 table #7: started
+2025/02/20-02:47:48.987 3a03 Level-0 table #7: 13819 bytes OK
+2025/02/20-02:47:48.993 3a03 Delete type=0 #4
